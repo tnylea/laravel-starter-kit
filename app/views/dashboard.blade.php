@@ -1,0 +1,1 @@
+Hello {{ Auth::user()->username }}! <a href="{{ URL::to('logout') }}">Logout?</a>
