@@ -36,3 +36,8 @@ Route::get('logout', function(){
 	Auth::logout();
 	return Redirect::to('/');
 });
+
+Route::get('install', 'InstallController@index');
+Route::post('install_db', 'InstallController@install_db');
+Route::post('install_data', 'InstallController@install_data');
+

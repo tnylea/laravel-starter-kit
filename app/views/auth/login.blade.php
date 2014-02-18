@@ -1,9 +1,5 @@
 @extends('layouts.master')
 
-@section('css')
-    <link rel="stylesheet" href="{{ URL::asset('assets/css/login_signup.css') }}" />
-@stop
-
 @section('content')
 
 <div class="container">
