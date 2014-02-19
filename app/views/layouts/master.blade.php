@@ -7,6 +7,18 @@
     @yield('css')
 </head>
 <body>
+
+	<nav class="navbar navbar-default navbar-static-top" role="navigation">
+	  <div class="container">
+	  	<div class="collapse navbar-collapse right" id="bs-example-navbar-collapse-1">
+	    	<ul class="nav navbar-nav navbar-right">
+	        	<li @if(Request::is('login')) class="active" @endif><a href="/login">Login</a></li>
+	        	<li @if(Request::is('signup')) class="active" @endif><a href="/signup">Signup</a></li>
+	    	</ul>
+	    </div>
+	  </div>
+	</nav>
+
     @yield('content')
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script scr="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
