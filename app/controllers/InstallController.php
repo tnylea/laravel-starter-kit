@@ -19,12 +19,8 @@ class InstallController extends BaseController {
 	{
 		try{
 
-			$user = User::first();
-			if($user){
-				return Redirect::to('/');
-			} else {
-				throw new Exception('No data, first install the script');
-			}
+			DB::connection();
+			return Redirect::to('/');
 
 		}catch(Exception $e){
 
@@ -37,13 +33,9 @@ class InstallController extends BaseController {
 
 			try{
 
-				$user = User::first();
-				if($user){
-					return Redirect::to('/');
-				} else {
-					throw new Exception('No Data, first install the script');
-				}
-
+				DB::connection();
+				return Redirect::to('/');
+				
 			}catch(Exception $e){
 
 				$db_host = $_POST['database_host'];
@@ -71,12 +63,8 @@ class InstallController extends BaseController {
 		if(Request::ajax()){
 			try{
 
-				$user = User::first();
-				if($user){
-					return Redirect::to('/');
-				} else {
-					throw new Exception('No data, first install the script');
-				}
+				DB::connection();
+				return Redirect::to('/');
 
 			}catch(Exception $e){
 

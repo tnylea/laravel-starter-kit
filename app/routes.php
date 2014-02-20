@@ -11,30 +11,35 @@
 |
 */
 
-Route::get('/', function()
+Route::group(array('before' => 'connected'), function()
 {
-	if(Auth::guest()){
+
+	Route::get('/', function()
+	{
+		if(Auth::guest()){
+			return View::make('auth.login');
+		} else {
+			return View::make('dashboard');
+		}	
+	});
+
+	Route::get('login', function(){
 		return View::make('auth.login');
-	} else {
-		return View::make('dashboard');
-	}	
-});
+	});
 
-Route::get('login', function(){
-	return View::make('auth.login');
-});
+	Route::get('signup', function(){
+		return View::make('auth.signup');
+	});
 
-Route::get('signup', function(){
-	return View::make('auth.signup');
-});
+	Route::post('login', 'UserController@login');
 
-Route::post('login', 'UserController@login');
+	Route::post('signup', 'UserController@signup');
 
-Route::post('signup', 'UserController@signup');
+	Route::get('logout', function(){
+		Auth::logout();
+		return Redirect::to('/');
+	});
 
-Route::get('logout', function(){
-	Auth::logout();
-	return Redirect::to('/');
 });
 
 Route::get('install', 'InstallController@index');

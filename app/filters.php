@@ -44,6 +44,14 @@ Route::filter('auth.basic', function()
 	return Auth::basic();
 });
 
+Route::filter('connected', function(){
+	try{
+		DB::connection();
+	} catch(Exception $e){
+		return Redirect::to('install');
+	}
+});
+
 /*
 |--------------------------------------------------------------------------
 | Guest Filter
