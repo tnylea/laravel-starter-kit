@@ -23,7 +23,7 @@
 
     @yield('content')
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script scr="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
 	<script type="text/javascript" src="{{ URL::asset('assets/js/noty/jquery.noty.js') }}"></script>
 	<script type="text/javascript" src="{{ URL::asset('assets/js/noty/themes/default.js') }}"></script>
 	<script type="text/javascript" src="{{ URL::asset('assets/js/noty/layouts/bottomRight.js') }}"></script>
