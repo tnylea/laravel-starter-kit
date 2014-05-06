@@ -28,7 +28,7 @@ class UserController extends BaseController{
 	public function login(){
 
 	    // get login POST data
-	    $userdata = array(
+	    $email_login = array(
 	        'email' => Input::get('email'),
 	        'password' => Input::get('password')
 	    );

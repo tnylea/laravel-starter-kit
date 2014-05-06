@@ -19,8 +19,11 @@ class InstallController extends BaseController {
 	{
 		try{
 
-			DB::connection();
-			return Redirect::to('/');
+			if (Schema::hasTable('users')){
+				return Redirect::to('/');
+			} else {
+				return View::make('install.index');
+			}
 
 		}catch(Exception $e){
 
@@ -31,12 +34,11 @@ class InstallController extends BaseController {
 	public function install_db(){
 		if(Request::ajax()){
 
-			try{
+			if (Schema::hasTable('users')){
 
-				DB::connection();
 				return Redirect::to('/');
 				
-			}catch(Exception $e){
+			} else {
 
 				$db_host = $_POST['database_host'];
 				$db_name = $_POST['database_name'];
@@ -61,39 +63,59 @@ class InstallController extends BaseController {
 
 	public function install_data(){
 		if(Request::ajax()){
-			try{
+			
+			if (Schema::hasTable('users')){
 
-				DB::connection();
 				return Redirect::to('/');
+				
+			} else {
 
-			}catch(Exception $e){
+				$db_host = $_POST['database_host'];
+				$db_name = $_POST['database_name'];
+				$db_user = $_POST['database_user'];
+				$db_password = $_POST['database_password'];
 
-				try{
+				Config::set('database.connections.mysql.host', $db_host);
+				Config::set('database.connections.mysql.database', $db_name);
+				Config::set('database.connections.mysql.username', $db_user);
+				Config::set('database.connections.mysql.password', $db_password);
 
-					$db_host = $_POST['database_host'];
-					$db_name = $_POST['database_name'];
-					$db_user = $_POST['database_user'];
-					$db_password = $_POST['database_password'];
+				$this->create_users_table();
 
-					Config::set('database.connections.mysql.host', $db_host);
-					Config::set('database.connections.mysql.database', $db_name);
-					Config::set('database.connections.mysql.username', $db_user);
-					Config::set('database.connections.mysql.password', $db_password);
+				$admin_username = $_POST['admin_username'];
+				$admin_email = $_POST['admin_email'];
+				$admin_password = $_POST['admin_password'];
 
-					Artisan::call('migrate');
-					// Artisan::call('db:seed', array('--class'=> "SomethingTableSeeder"));
+				$this->create_admin_user($admin_username, $admin_email, $admin_password);
 
-					echo true;
-
-				} catch(Exception $e){
-					echo false;
-				}
+				echo true;
 
 			}
 
 		} else {
 			echo false;
 		}
+	}
+
+	public function create_users_table(){
+		Schema::create('users', function($table){
+			$table->increments('id');
+			$table->string('username');
+			$table->string('email');
+			$table->string('password');
+			$table->boolean('admin')->default(0);
+			$table->timestamps();
+		});
+	}
+
+	public function create_admin_user($username, $email, $password){
+
+		$user = new User;
+		$user->username = $username;
+		$user->email = $email;
+		$user->password = Hash::make($password);
+		$user->save();
+
 	}
 
 }

@@ -45,9 +45,7 @@ Route::filter('auth.basic', function()
 });
 
 Route::filter('connected', function(){
-	try{
-		DB::connection();
-	} catch(Exception $e){
+	if (!Schema::hasTable('users')){
 		return Redirect::to('install');
 	}
 });

@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ URL::asset('assets/bootstrap/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ URL::asset('assets/css/noty.css') }}" />
     <link rel="stylesheet" href="{{ URL::asset('assets/css/nprogress.css') }}" />
+    <link rel="stylesheet" href="{{ URL::asset('assets/css/font-awesome.min.css') }}" />
+    <link rel="stylesheet" href="{{ URL::asset('assets/css/capicon.css') }}" />
     <link rel="stylesheet" href="{{ URL::asset('assets/css/style.css') }}" />
     @yield('css')
 </head>
