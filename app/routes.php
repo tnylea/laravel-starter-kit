@@ -40,9 +40,58 @@ Route::group(array('before' => 'connected'), function()
 		return Redirect::to('/');
 	});
 
+	// RESET PASSWORD Routes
+	Route::get('password/reset', array(
+	  'uses' => 'PasswordController@remind',
+	  'as' => 'password.remind'
+	));
+
+	Route::post('password/reset', array(
+	  'uses' => 'PasswordController@request',
+	  'as' => 'password.request'
+	));
+
+	Route::get('password/reset/{token}', array(
+	  'uses' => 'PasswordController@reset',
+	  'as' => 'password.reset'
+	));
+
+	Route::post('password/reset/{token}', array(
+	  'uses' => 'PasswordController@update',
+	  'as' => 'password.update'
+	));
+
+	Route::get('testmail', function(){
+		$user = array(
+		  'email'=>'tnylea@gmail.com',
+		  'name'=>'Bleh'
+		);
+		 
+		// the data that will be passed into the mail view blade template
+		$data = array(
+		  'token'=>'adsfasdf',
+		);
+		 
+		// use Mail::send function to send email passing the data and using the $user variable in the closure
+		Mail::send('emails.auth.reminder', $data, function($message) use ($user)
+		{
+		  $message->from('tony@devdojo.com', 'Site Admin');
+		  $message->to($user['email'], $user['name'])->subject('Welcome to My Laravel app!');
+		});
+	});
+
 });
 
 Route::get('install', 'InstallController@index');
 Route::post('install_db', 'InstallController@install_db');
 Route::post('install_data', 'InstallController@install_data');
 
+/********** IMPORTANT REMEMBER TO COMMENT THIS OUT **********/
+
+Route::get('reset', function(){
+	Schema::dropIfExists('users');
+	Schema::dropIfExists('password_reminders');
+	return Redirect::to('/');
+});
+
+/********** ^^ IMPORTANT REMEMBER TO COMMENT THIS OUT ^^ **********/

@@ -81,6 +81,7 @@ class InstallController extends BaseController {
 				Config::set('database.connections.mysql.password', $db_password);
 
 				$this->create_users_table();
+				$this->create_password_reminder_table();
 
 				$admin_username = $_POST['admin_username'];
 				$admin_email = $_POST['admin_email'];
@@ -106,6 +107,14 @@ class InstallController extends BaseController {
 			$table->boolean('admin')->default(0);
 			$table->timestamps();
 		});
+	}
+
+	public function create_password_reminder_table(){
+		Schema::create('password_reminders', function($table){
+	      $table->string('email');
+	      $table->string('token');
+	      $table->timestamp('created_at');
+	    });
 	}
 
 	public function create_admin_user($username, $email, $password){

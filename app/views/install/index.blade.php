@@ -16,8 +16,8 @@
 		<input type="text" class="form-control" name="admin_email" id="admin_email" placeholder="Email" />
 		<input type="password" class="form-control" name="admin_password" id="admin_password" placeholder="Password" />
 		
-		<input type="submit" class="form-control btn btn-color btn-info" value="Install" />
-		<div class="install_message"><i class="fa fa-spin fa-refresh"></i> Cranking The Wheels...</div>
+		<input type="submit" class="btn btn-lg btn-primary btn-block" value="Install" />
+		<div class="install_message"><i class="fa fa-spin fa-refresh"></i> Working some Magic...</div>
 	</form>
 
 	<div class="install_success_message"><strong>Successfully Installed!</strong> <br /><a href="/login">click here to login</a></div>

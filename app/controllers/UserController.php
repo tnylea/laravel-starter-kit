@@ -47,7 +47,8 @@ class UserController extends BaseController{
 	        return Redirect::to('login')->with(array('note' => 'invalid login, please try again.', 'note_type' => 'error'));
 	    }
 	    
-
 	}
+
+	
 
 }

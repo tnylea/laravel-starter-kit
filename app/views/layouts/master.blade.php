@@ -16,14 +16,22 @@
 	  <div class="container">
 	  	<div class="collapse navbar-collapse right" id="bs-example-navbar-collapse-1">
 	    	<ul class="nav navbar-nav navbar-right">
-	        	<li @if(Request::is('login')) class="active" @endif><a href="/login">Login</a></li>
-	        	<li @if(Request::is('signup')) class="active" @endif><a href="/signup">Signup</a></li>
+	    		@if(Auth::guest())
+	        		<li @if(Request::is('login')) class="active" @endif><a href="/login">Login</a></li>
+	        		<li @if(Request::is('signup')) class="active" @endif><a href="/signup">Signup</a></li>
+	        	@else
+	        		<li><a href="/logout">Logout</a></li>
+	        	@endif
 	    	</ul>
 	    </div>
 	  </div>
 	</nav>
 
-    @yield('content')
+	<div class="container">
+    	@yield('content')
+	</div>	
+
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
 	<script type="text/javascript" src="{{ URL::asset('assets/js/noty/jquery.noty.js') }}"></script>
